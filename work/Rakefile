@@ -1,0 +1,15 @@
+require 'rake/clean'
+
+CLEAN.include('build')
+
+file 'libwork.so' => ['build/work.o', 'build'] do
+  sh 'clang -shared -o build/libwork.so build/work.o'
+end
+
+file 'build/work.o' => ['work.c', 'build'] do
+  sh 'clang -c -Wall -Werror -fpic work.c -o build/work.o'
+end
+
+directory 'build'
+
+task :default => ['libwork.so']

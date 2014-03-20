@@ -1,0 +1,11 @@
+require 'rake/clean'
+
+CLEAN.include('build')
+
+file 'build/test' => ['test.c', 'build'] do
+  sh 'clang -o build/test test.c'
+end
+
+directory 'build'
+
+task :default => 'build/test'
